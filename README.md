@@ -1,24 +1,12 @@
-Simple Business Data Agent
-this is a little AI agent built with LangGraph that looks at some basic business numbers (sales, costs) and gives you a quick report
+simple Business Data Agent for decamond
 
-what it does
-it takes todays and yesterdays business data and figures out :
-
-if you made a profit or loss (basically pnl)
-
-how much your sales and costs changed.
-
-if your Customer Acquisition Cost (CAC) jumped up too high.
-
-then it gives you some simple advice based on those numbers.
-
-how to run it
+how to run it (just writing stuff up i know you already know)
 
 install the stuff it needs :
 
 pip install langgraph langchain-core
 
-just run the script:
+ run the script:
 
 python business_agent.py
 
