@@ -2,20 +2,22 @@ import unittest
 import json
 from typing import TypedDict, Dict, Any
 
-from langchain_core.messages import BaseMessage #unused idk
+# No need for BaseMessage if we aren't using chat messages
 from langgraph.graph import StateGraph, END
 
 #this is like the main memory for the graph, it holds all our data as it moves around.
 
 class AgentState(TypedDict):
+    """holds all the data for our agent's little brain"""
     input_data: Dict[str, Any] # the raw data we get
     metrics: Dict[str, float] # the numbers we calculate
-    report: Dict[str, Any] #final report with advice
+    report: Dict[str, Any] # the final report with advice
 
 
 #(real workers here) each node is just a function. it gets the state, does a job, and returns what it changed.
 
-def calclate_metrics_node(state: AgentState) -> Dict[str, Any]:
+# Fixed typo: calclate -> calculate
+def calculate_metrics_node(state: AgentState) -> Dict[str, Any]:
     """this one does the math i guess"""
     print("---EXECUTING NODE: calculate_metrics_node---")
     input_data = state['input_data']
@@ -105,7 +107,7 @@ def generate_recommendations_node(state: AgentState) -> Dict[str, Any]:
 workflow = StateGraph(AgentState)
 
 # add our functions as nodes
-workflow.add_node("calculator", calclate_metrics_node)
+workflow.add_node("calculator", calculate_metrics_node)
 workflow.add_node("recommender", generate_recommendations_node)
 
 #now connect the dots
@@ -134,7 +136,7 @@ sample_input_data = {
 
 #this part only runs when i gota'python business_agent.py'
 if __name__ == "__main__":
-    print("---STARTING AGENT RUN--")
+    print("---STARTING AGENT RUN---")
     #gotta wrap the input data in a dictionary that matches the state
     initial_state = {"input_data": sample_input_data}
     final_state = app.invoke(initial_state)
